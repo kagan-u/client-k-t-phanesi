@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Client Listesi</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; }
+.client-btn { margin: 5px; padding: 8px 12px; cursor: pointer; border-radius: 5px; background-color: #007bff; color: white; border: none; }
+.client-btn:hover { background-color: #0056b3; }
+</style>
+</head>
+<body>
+<h1>Client Koleksiyon Listesi</h1>
+<div id="client-list"></div>
+
+<script>
+// README raw linki
+const readmeURL = 'https://raw.githubusercontent.com/KULLANICI_ADIN/REPO_ADI/main/README.md';
+
+fetch(readmeURL)
+  .then(response => response.text())
+  .then(md => {
+    // Markdown'u HTML'e çevir
+    const html = marked.parse(md);
+    document.getElementById('client-list').innerHTML = html;
+  })
+  .catch(err => console.error('README çekilemedi:', err));
+</script>
+</body>
+</html>
