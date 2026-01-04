@@ -3,8 +3,8 @@
 
 This repository contains a comprehensive list of various clients. Please note that **some clients might contain RATs (Remote Access Trojans)**. Use them at your own risk.
 
-| Client Name         | Repository Link                                          |
-|---------------------|-----------------------------------------------------------|
+| Client İsmi         | Depo Linki                                              |
+|---------------------|---------------------------------------------------------|
 | 06dWare             | https://github.com/GentlemanMC/Xulu-06dware             |
 | 1.19 Client         | https://github.com/zopac/1.19-client                    |
 | 303Hack / ThreeZeroThreeHack | https://github.com/MikuSoCute/ThreeZeroThreeHack             |
