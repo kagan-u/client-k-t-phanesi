@@ -3,29 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <title>Client Listesi</title>
+
+<!-- Markdown parser -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 <style>
-body { font-family: Arial, sans-serif; padding: 20px; }
-.client-btn { margin: 5px; padding: 8px 12px; cursor: pointer; border-radius: 5px; background-color: #007bff; color: white; border: none; }
-.client-btn:hover { background-color: #0056b3; }
+  body {
+    font-family: system-ui, Arial, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #search {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+  }
+
+  .clients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .client-btn {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .client-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+  }
 </style>
 </head>
 <body>
-<h1>Client Koleksiyon Listesi</h1>
-<div id="client-list"></div>
+
+<h1>Client Koleksiyonu</h1>
+<input id="search" placeholder="Client ara...">
+
+<div class="clients" id="clients"></div>
 
 <script>
-// README raw linki
-const readmeURL = 'https://raw.githubusercontent.com/kagan-u/client-k-t-phanesi/main/README.md';
+const README_URL =
+  "https://raw.githubusercontent.com/kagan-u/client-k-t-phanesi/main/README.md";
 
-fetch(readmeURL)
-  .then(response => response.text())
+fetch(README_URL)
+  .then(res => res.text())
   .then(md => {
-    // Markdown'u HTML'e çevir
-    const html = marked.parse(md);
-    document.getElementById('client-list').innerHTML = html;
+    // README içinden Markdown linklerini yakala
+    const regex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
+    const container = document.getElementById("clients");
+
+    let match;
+    while ((match = regex.exec(md)) !== null) {
+      const name = match[1];
+      const link = match[2];
+
+      const btn = document.createElement("button");
+      btn.className = "client-btn";
+      btn.textContent = name;
+      btn.onclick = () => window.open(link, "_blank");
+
+      container.appendChild(btn);
+    }
+
+    // Arama
+    document.getElementById("search").addEventListener("input", e => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll(".client-btn").forEach(b => {
+        b.style.display = b.textContent.toLowerCase().includes(q)
+          ? "inline-block"
+          : "none";
+      });
+    });
   })
-  .catch(err => console.error('README çekilemedi:', err));
+  .catch(err => {
+    document.getElementById("clients").textContent =
+      "README yüklenemedi.";
+    console.error(err);
+  });
 </script>
+
 </body>
 </html>
