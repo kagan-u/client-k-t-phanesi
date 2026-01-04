@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Client Listesi</title>
+<title>Client Koleksiyonu</title>
 
 <style>
   body {
@@ -14,17 +14,7 @@
 
   h1 {
     text-align: center;
-    margin-bottom: 20px;
-  }
-
-  #search {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
+    margin-bottom: 25px;
   }
 
   .clients {
@@ -54,8 +44,6 @@
 <body>
 
 <h1>Client Koleksiyonu</h1>
-<input id="search" placeholder="Client ara...">
-
 <div class="clients" id="clients"></div>
 
 <script>
@@ -63,8 +51,6 @@ const README_URL =
   "https://raw.githubusercontent.com/kagan-u/client-k-t-phanesi/main/README.md";
 
 const container = document.getElementById("clients");
-const searchInput = document.getElementById("search");
-let buttons = [];
 
 fetch(README_URL)
   .then(res => res.text())
@@ -72,13 +58,13 @@ fetch(README_URL)
     const lines = text.split("\n");
 
     lines.forEach(line => {
-      // URL yakala
+      // Satırda URL var mı?
       const urlMatch = line.match(/https?:\/\/\S+/);
       if (!urlMatch) return;
 
       const url = urlMatch[0];
 
-      // İsim üret (linkten önceki yazı varsa onu al)
+      // Client adı üret
       let name = line
         .replace(url, "")
         .replace(/[-:*]/g, "")
@@ -94,25 +80,12 @@ fetch(README_URL)
       btn.onclick = () => window.open(url, "_blank");
 
       container.appendChild(btn);
-      buttons.push(btn);
     });
   })
   .catch(err => {
     container.textContent = "README yüklenemedi.";
     console.error(err);
   });
-
-// 🔍 Arama (boşsa HER ŞEY görünür)
-searchInput.addEventListener("input", () => {
-  const q = searchInput.value.toLowerCase();
-
-  buttons.forEach(btn => {
-    btn.style.display =
-      q === "" || btn.textContent.toLowerCase().includes(q)
-        ? "inline-block"
-        : "none";
-  });
-});
 </script>
 
 </body>
