@@ -7,20 +7,21 @@
 <style>
   body {
     font-family: system-ui, Arial, sans-serif;
-    background: #0b1220;
+    background: radial-gradient(circle at top, #0f1b34, #050914);
     color: #e5e7eb;
-    padding: 20px;
+    padding: 30px;
   }
 
   h1 {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    font-size: 32px;
   }
 
   .clients {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
   }
 
@@ -28,16 +29,17 @@
     background: linear-gradient(135deg, #2563eb, #1e40af);
     color: white;
     border: none;
-    padding: 10px 16px;
-    border-radius: 10px;
+    padding: 12px 18px;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 14px;
     transition: transform 0.15s, box-shadow 0.15s;
   }
 
   .client-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(37,99,235,0.5);
   }
 </style>
 </head>
@@ -47,30 +49,29 @@
 <div class="clients" id="clients"></div>
 
 <script>
+/*
+  ÖNEMLİ:
+  Aşağıdaki URL'yi KENDİ repo bilgilerinle değiştir
+*/
 const README_URL =
-  "https://raw.githubusercontent.com/kagan-u/client-k-t-phanesi/main/README.md";
+  "https://cdn.jsdelivr.net/gh/kagan-u/client-k-t-phanesi@main/README.md";
 
 const container = document.getElementById("clients");
 
 fetch(README_URL)
   .then(res => res.text())
   .then(text => {
-    const lines = text.split("\n");
+    const regex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)|https?:\/\/\S+/g;
+    let match;
 
-    lines.forEach(line => {
-      // Satırda URL var mı?
-      const urlMatch = line.match(/https?:\/\/\S+/);
-      if (!urlMatch) return;
+    while ((match = regex.exec(text)) !== null) {
+      let name, url;
 
-      const url = urlMatch[0];
-
-      // Client adı üret
-      let name = line
-        .replace(url, "")
-        .replace(/[-:*]/g, "")
-        .trim();
-
-      if (!name) {
+      if (match[1] && match[2]) {
+        name = match[1];
+        url = match[2];
+      } else {
+        url = match[0];
         name = url.replace("https://github.com/", "");
       }
 
@@ -80,10 +81,10 @@ fetch(README_URL)
       btn.onclick = () => window.open(url, "_blank");
 
       container.appendChild(btn);
-    });
+    }
   })
   .catch(err => {
-    container.textContent = "README yüklenemedi.";
+    container.innerHTML = "<b>README yüklenemedi.</b>";
     console.error(err);
   });
 </script>
