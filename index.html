@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <title>Client Listesi</title>
 
-<!-- Markdown parser -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 <style>
   body {
     font-family: system-ui, Arial, sans-serif;
-    background: #0f172a;
+    background: #0b1220;
     color: #e5e7eb;
     padding: 20px;
   }
@@ -25,7 +22,7 @@
     padding: 12px;
     margin-bottom: 20px;
     font-size: 16px;
-    border-radius: 8px;
+    border-radius: 10px;
     border: none;
     outline: none;
   }
@@ -65,41 +62,57 @@
 const README_URL =
   "https://raw.githubusercontent.com/kagan-u/client-k-t-phanesi/main/README.md";
 
+const container = document.getElementById("clients");
+const searchInput = document.getElementById("search");
+let buttons = [];
+
 fetch(README_URL)
   .then(res => res.text())
-  .then(md => {
-    // README içinden Markdown linklerini yakala
-    const regex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
-    const container = document.getElementById("clients");
+  .then(text => {
+    const lines = text.split("\n");
 
-    let match;
-    while ((match = regex.exec(md)) !== null) {
-      const name = match[1];
-      const link = match[2];
+    lines.forEach(line => {
+      // URL yakala
+      const urlMatch = line.match(/https?:\/\/\S+/);
+      if (!urlMatch) return;
+
+      const url = urlMatch[0];
+
+      // İsim üret (linkten önceki yazı varsa onu al)
+      let name = line
+        .replace(url, "")
+        .replace(/[-:*]/g, "")
+        .trim();
+
+      if (!name) {
+        name = url.replace("https://github.com/", "");
+      }
 
       const btn = document.createElement("button");
       btn.className = "client-btn";
       btn.textContent = name;
-      btn.onclick = () => window.open(link, "_blank");
+      btn.onclick = () => window.open(url, "_blank");
 
       container.appendChild(btn);
-    }
-
-    // Arama
-    document.getElementById("search").addEventListener("input", e => {
-      const q = e.target.value.toLowerCase();
-      document.querySelectorAll(".client-btn").forEach(b => {
-        b.style.display = b.textContent.toLowerCase().includes(q)
-          ? "inline-block"
-          : "none";
-      });
+      buttons.push(btn);
     });
   })
   .catch(err => {
-    document.getElementById("clients").textContent =
-      "README yüklenemedi.";
+    container.textContent = "README yüklenemedi.";
     console.error(err);
   });
+
+// 🔍 Arama (boşsa HER ŞEY görünür)
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.toLowerCase();
+
+  buttons.forEach(btn => {
+    btn.style.display =
+      q === "" || btn.textContent.toLowerCase().includes(q)
+        ? "inline-block"
+        : "none";
+  });
+});
 </script>
 
 </body>
