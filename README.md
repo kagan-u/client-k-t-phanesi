@@ -1,7 +1,7 @@
-# Client Collection List - Total Clients: 823
-**MAKE SURE TO JOIN: https://discord.gg/vzXzFpv2gk**
+# Client Koleksiyon Listesi - Toplam Clientler: 823
+**Discord** Sunucumuz: https://discord.gg/kzTzpRqN
 
-This repository contains a comprehensive list of various clients. Please note that **some clients might contain RATs (Remote Access Trojans)**. Use them at your own risk.
+Bu depo, çeşitli istemcilerin kapsamlı bir listesini içermektedir. Lütfen bazı istemcilerin RAT (Remote Access Trojans) içerebileceğini unutmayın. Kullanım tamamen kendi sorumluluğunuzdadır.
 
 | Client İsmi         | Depo Linki                                              |
 |---------------------|---------------------------------------------------------|
@@ -829,6 +829,6 @@ This repository contains a comprehensive list of various clients. Please note th
 | ZWare.CC | https://github.com/ZWareDevelopment/ZWare.cc // https://github.com/ZWareDevelopment/ZWare.cc-Old |
 | Zyklon | https://github.com/jeopardization/Zyklon |
 
-## Disclaimer
+**Sorumluluk Reddi**
 
-This list is provided for informational purposes only. The repository owner does not endorse or support any of the listed clients. Use these clients at your own risk and ensure you understand the potential risks involved.
+Bu liste yalnızca bilgilendirme amaçlıdır. Depo sahibi, listelenen istemcilerin hiçbirini onaylamaz veya desteklemez. Bu istemcileri kullanmak tamamen kendi sorumluluğunuzdadır ve olası riskleri anladığınızdan emin olmalısınız.
