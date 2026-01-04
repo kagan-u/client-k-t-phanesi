@@ -828,7 +828,6 @@ Bu depo, çeşitli istemcilerin kapsamlı bir listesini içermektedir. Lütfen b
 | ZSpaceHack | https://github.com/ApertureStatic/ZSpaceHack-Public |
 | ZWare.CC | https://github.com/ZWareDevelopment/ZWare.cc // https://github.com/ZWareDevelopment/ZWare.cc-Old |
 | Zyklon | https://github.com/jeopardization/Zyklon |
-| Konas | https://github.com/eralp232/KonasClient/releases|
 
 **Sorumluluk Reddi:**
 
