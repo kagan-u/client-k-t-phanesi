@@ -1,5 +1,4 @@
 # Client Koleksiyon Listesi - Toplam Clientler: 823
-**Discord** Sunucumuz: https://discord.gg/kzTzpRqN
 
 Bu depo, çeşitli istemcilerin kapsamlı bir listesini içermektedir. Lütfen bazı istemcilerin RAT (Remote Access Trojans) içerebileceğini unutmayın. Kullanım tamamen kendi sorumluluğunuzdadır.
 
